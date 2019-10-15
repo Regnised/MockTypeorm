@@ -4,6 +4,9 @@ import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { ProjectEntity } from '../src/project/models/entities/project.entity';
+import { Repository } from 'typeorm';
+import { mockProjectsRepository } from './projects.repository';
+import { ProjectsRepository, ProjectsRepositoryProvider } from '../src/project/models/repositories/projects.repository';
 
 const project = {
     title: 'Test title 1',
@@ -49,11 +52,12 @@ describe('AppController (e2e)', () => {
             providers: [
                 {
                     provide: getRepositoryToken(ProjectEntity),
-                    useValue: mockRepository,
+                    useClass: mockProjectsRepository,
                 },
             ],
         }).compile();
         app = module.createNestApplication();
+
         await app.init();
     });
 

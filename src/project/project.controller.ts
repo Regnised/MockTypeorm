@@ -30,7 +30,7 @@ export class ProjectController {
 
         const project: ProjectEntity = this.projectSerializer.deserialize(draftProject);
         const command = new CreateDraftProjectCommand(project);
-        // console.log('-----------', await this.commandBus.execute(command));
+        console.log('-----------', await this.commandBus.execute(command));
 
         return Promise.resolve(project.uuid);
     }
