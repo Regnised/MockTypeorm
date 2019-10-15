@@ -10,6 +10,7 @@ import { Repository } from 'typeorm';
 export class CreateDraftHandler implements ICommandHandler<CreateDraftProjectCommand> {
     constructor(
         @InjectRepository(ProjectEntity) private readonly projectRepository: Repository<ProjectEntity>,
+        // private readonly projectRepository: ProjectsRepository,
         ) {}
 
     public async execute(createDraftCommand: CreateDraftProjectCommand) {
@@ -17,7 +18,7 @@ export class CreateDraftHandler implements ICommandHandler<CreateDraftProjectCom
         const errors = await createDraftCommand.draftProject.validationErrors();
         if (errors.length === 0) {
             try {
-                console.log( '------', this.projectRepository );
+                console.log( '------', this.projectRepository.create );
                 return await this.projectRepository.create(createDraftCommand.draftProject);
             } catch (e) {
                 console.log( '======', e );

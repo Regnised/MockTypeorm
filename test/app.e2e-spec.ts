@@ -1,5 +1,5 @@
 import { INestApplication } from '@nestjs/common';
-import { Test } from '@nestjs/testing';
+import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
@@ -7,6 +7,8 @@ import { ProjectEntity } from '../src/project/models/entities/project.entity';
 import { Repository } from 'typeorm';
 import { mockProjectsRepository } from './projects.repository';
 import { ProjectsRepository, ProjectsRepositoryProvider } from '../src/project/models/repositories/projects.repository';
+import { CreateDraftHandler } from '../src/project/commands/handlers/create-draft.handler';
+import { RepositoriesModule } from '../src/project/models/repositories/repositories.module';
 
 const project = {
     title: 'Test title 1',
@@ -45,17 +47,38 @@ describe('AppController (e2e)', () => {
             relations: [],
         },
     }));
+    // const responseCreate = {...};
+    // const responseFindAll = {...};
 
-    beforeAll(async () => {
-        const module = await Test.createTestingModule({
-            imports: [AppModule],
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            imports: [ AppModule, TypeOrmModule.forFeature([ProjectEntity])],
             providers: [
+                CreateDraftHandler,
+                RepositoriesModule,
                 {
-                    provide: getRepositoryToken(ProjectEntity),
-                    useClass: mockProjectsRepository,
-                },
-            ],
-        }).compile();
+                    provide: ProjectsRepository,
+                    useFactory: () => ({
+                        create: jest.fn(
+                            () => new Promise(resolve => resolve(project)),
+                        ),
+                        find: jest.fn(
+                            () => new Promise(resolve => resolve(project)),
+                        ),
+                        findOne: jest.fn(
+                            ({uuid}) =>
+                                new Promise(resolve => {
+                                    resolve(project);
+                                }),
+                        ),
+                        delete: jest.fn(uuid => new Promise(resolve => resolve())),
+                        save: jest.fn(data => new Promise(resolve => {
+                            // data = data.uuid === undefined ? data.uuid = uuid() : data;
+                            resolve(data);
+                        })),
+                    })
+                }]
+                }).compile();
         app = module.createNestApplication();
 
         await app.init();
