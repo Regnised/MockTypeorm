@@ -59,7 +59,10 @@ describe("AppController (e2e)", () => {
       // import modules, the modules should import the entities they deal with.
       // The testing module should be barebones
       imports: [
-        AppModule,
+        // basically looks like a unit test but goes through the HTTP motions
+        // if you want to include the AppModule you'll need to create a configuration 
+        // for the database module (TypeORM) that will be accessible in a testing context
+        // AppModule,
         ProjectModule /* TypeOrmModule.forFeature([ProjectEntity]) */
       ],
       // these should come from the modules themselves, you shouldn't need to redefine them
