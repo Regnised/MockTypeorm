@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
     imports: [
         ProjectModule,
-        TypeOrmModule.forRoot(),
+        // TypeOrmModule.forRoot(),
     ],
 })
 export class AppModule {}
