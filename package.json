@@ -27,7 +27,7 @@
     "@nestjs/typeorm": "6.2.0",
     "@nestjs/websockets": "6.5.3",
     "class-transformer": "0.2.3",
-    "class-validator": "0.10.0",
+    "class-validator": "0.14.0",
     "dotenv": "8.0.0",
     "ngx-cacheable": "1.2.5",
     "pg": "7.12.1",
