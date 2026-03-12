@@ -24,7 +24,7 @@
     "@nestjs/microservices": "6.5.3",
     "@nestjs/platform-express": "11.1.16",
     "@nestjs/swagger": "^3.1.0",
-    "@nestjs/typeorm": "6.2.0",
+    "@nestjs/typeorm": "11.0.0",
     "@nestjs/websockets": "6.5.3",
     "class-transformer": "0.2.3",
     "class-validator": "0.14.0",
@@ -36,7 +36,7 @@
     "rxjs": "6.5.2",
     "sinon": "^7.5.0",
     "swagger-ui-express": "^4.1.2",
-    "typeorm": "0.2.18",
+    "typeorm": "0.3.28",
     "uuid": "3.3.3"
   },
   "devDependencies": {
