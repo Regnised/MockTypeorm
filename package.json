@@ -37,7 +37,7 @@
     "sinon": "^7.5.0",
     "swagger-ui-express": "^4.1.2",
     "typeorm": "0.3.28",
-    "uuid": "3.3.3"
+    "uuid": "14.0.0"
   },
   "devDependencies": {
     "@nestjs/testing": "6.1.1",
